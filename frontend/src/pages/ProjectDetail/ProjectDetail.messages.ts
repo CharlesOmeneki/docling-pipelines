@@ -47,15 +47,15 @@ export const messages = defineMessages({
   },
   created: {
     id: 'src.pages.ProjectDetail.created',
-    defaultMessage: 'Created: ',
+    defaultMessage: 'Created: <b>{date}</b>',
   },
   lastUpdated: {
     id: 'src.pages.ProjectDetail.lastUpdated',
-    defaultMessage: 'Last updated: ',
+    defaultMessage: 'Last updated: <b>{date}</b>',
   },
   flows: {
     id: 'src.pages.ProjectDetail.flows',
-    defaultMessage: 'Flows: ',
+    defaultMessage: 'Flows: <b>{count}</b>',
   },
   expandDetails: {
     id: 'src.pages.ProjectDetail.expandDetails',

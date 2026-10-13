@@ -257,9 +257,24 @@ export function ProjectDetail(): React.JSX.Element | null {
             <div className={styles.detailsRow}>
               <p className={styles.description}>{project.description ?? ''}</p>
               <div className={styles.meta}>
-                <p className={styles.metaItem}>{intl.formatMessage(messages.created)}<strong>{createdOn}</strong></p>
-                <p className={styles.metaItem}>{intl.formatMessage(messages.lastUpdated)}<strong>{lastUpdated}</strong></p>
-                <p className={styles.metaItem}>{intl.formatMessage(messages.flows)}<strong>{project.flowCount}</strong></p>
+                <p className={styles.metaItem}>
+                  {intl.formatMessage(messages.created, {
+                    date: createdOn,
+                    b: (chunks: React.ReactNode) => <b>{chunks}</b>,
+                  })}
+                </p>
+                <p className={styles.metaItem}>
+                  {intl.formatMessage(messages.lastUpdated, {
+                    date: lastUpdated,
+                    b: (chunks: React.ReactNode) => <b>{chunks}</b>,
+                  })}
+                </p>
+                <p className={styles.metaItem}>
+                  {intl.formatMessage(messages.flows, {
+                    count: project.flowCount,
+                    b: (chunks: React.ReactNode) => <b>{chunks}</b>,
+                  })}
+                </p>
               </div>
             </div>
           )}
