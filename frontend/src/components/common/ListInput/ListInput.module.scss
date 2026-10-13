@@ -1,0 +1,40 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/react/scss/theme' as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.addButton {
+  align-self: flex-start;
+  margin-top: $spacing-05;
+}
+
+.tableWrapper {
+  margin-top: $spacing-05;
+  border-left: 2px solid $border-subtle;
+}
+
+.valueCell {
+  word-break: break-all;
+}
+
+.removeCell {
+  width: 3rem;
+  text-align: right;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: $layer-01;
+  border-top: 1px solid $border-subtle;
+}
+
+.pageLabel {
+  @include type-style('body-compact-01');
+  padding: 0 $spacing-05;
+}
