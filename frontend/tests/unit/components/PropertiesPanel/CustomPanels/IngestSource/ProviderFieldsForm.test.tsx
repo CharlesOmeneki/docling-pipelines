@@ -1,6 +1,15 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, fireEvent } from '@testing-library/react';
+import { render as rtlRender, fireEvent, type RenderOptions } from '@testing-library/react';
+import type React from 'react';
 import { ProviderFieldsForm } from '@/components/PropertiesPanel/CustomPanels/shared/ProviderFieldsForm';
+
+import { IntlProvider } from 'react-intl';
+
+const IntlWrapper = ({ children }: { children: React.ReactNode }) => (
+  <IntlProvider locale="en" defaultLocale="en">{children}</IntlProvider>
+);
+const render = (ui: React.ReactElement, options: Omit<RenderOptions, 'wrapper'> = {}) =>
+  rtlRender(ui, { wrapper: IntlWrapper, ...options });
 
 describe('ProviderFieldsForm', () => {
   it('renders without crashing with empty properties', () => {

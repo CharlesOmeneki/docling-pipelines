@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+import { IntlProvider } from 'react-intl';
 import { ListInput } from '@/components/common/ListInput/ListInput';
 
 function renderListInput(props: Partial<Parameters<typeof ListInput>[0]> = {}) {
@@ -13,7 +14,11 @@ function renderListInput(props: Partial<Parameters<typeof ListInput>[0]> = {}) {
     onChange: vi.fn(),
     ...props,
   };
-  return render(React.createElement(ListInput, defaultProps));
+  return render(
+    <IntlProvider locale="en" defaultLocale="en">
+      <ListInput {...defaultProps} />
+    </IntlProvider>
+  );
 }
 
 describe('ListInput', () => {
@@ -71,11 +76,18 @@ describe('ListInput', () => {
     expect(onChange).toHaveBeenCalledWith(['/data/documents/file.pdf']);
   });
 
-  it('duplicate value is not added', async () => {
+  it('duplicate value is not added, input is flagged invalid and text is kept', async () => {
     const onChange = vi.fn();
     renderListInput({ items: ['/dupe'], onChange });
-    await userEvent.type(screen.getByRole('textbox'), '/dupe{Enter}');
+    const input = screen.getByRole('textbox') as HTMLInputElement;
+    await userEvent.type(input, '/dupe{Enter}');
     expect(onChange).not.toHaveBeenCalled();
+    expect(input.value).toBe('/dupe');
+    expect(input.getAttribute('aria-invalid')).toBe('true');
+    expect(screen.getByText('"/dupe" has already been added.')).toBeDefined();
+    // Editing clears the invalid state
+    await userEvent.type(input, 'x');
+    expect(input.getAttribute('aria-invalid')).not.toBe('true');
   });
 
   it('remove button removes the item', async () => {
@@ -89,6 +101,22 @@ describe('ListInput', () => {
     renderListInput({ items: ['a1', 'a2', 'a3', 'a4', 'a5', 'a6'] });
     expect(screen.queryByText('a6')).toBeNull();
     fireEvent.click(screen.getByRole('button', { name: /next page/i }));
+    expect(screen.getByText('a6')).toBeDefined();
+    expect(screen.queryByText('a1')).toBeNull();
+  });
+
+  it('jumps to the page containing a newly added item', async () => {
+    const items = ['a1', 'a2', 'a3', 'a4', 'a5'];
+    const Harness = () => {
+      const [list, setList] = React.useState(items);
+      return <ListInput id="h" labelText="Paths" tableTitle="Added paths" items={list} onChange={setList} />;
+    };
+    render(
+      <IntlProvider locale="en" defaultLocale="en">
+        <Harness />
+      </IntlProvider>
+    );
+    await userEvent.type(screen.getByRole('textbox'), 'a6{Enter}');
     expect(screen.getByText('a6')).toBeDefined();
     expect(screen.queryByText('a1')).toBeNull();
   });

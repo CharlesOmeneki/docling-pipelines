@@ -4,5 +4,13 @@
   "src.components.cards.FlowsCard.loadError": "Failed to load flows.",
   "src.components.cards.FlowsCard.loading": "Loading flows...",
   "src.components.cards.FlowsCard.refreshDescription": "Refresh flows",
-  "src.components.cards.FlowsCard.title": "Flows"
+  "src.components.cards.FlowsCard.title": "Flows",
+  "src.components.common.ListInput.addButton": "Add",
+  "src.components.common.ListInput.duplicateValue": "\"{value}\" has already been added.",
+  "src.components.common.ListInput.itemRange": "{min}-{max} of {total} items",
+  "src.components.common.ListInput.itemsPerPage": "Items per page:",
+  "src.components.common.ListInput.nextPage": "Next page",
+  "src.components.common.ListInput.pageRange": "{current} of {total} pages",
+  "src.components.common.ListInput.previousPage": "Previous page",
+  "src.components.common.ListInput.removeItem": "Remove {item}"
 }

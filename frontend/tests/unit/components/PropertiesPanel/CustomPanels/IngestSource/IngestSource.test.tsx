@@ -1,6 +1,15 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render as rtlRender, screen, fireEvent, type RenderOptions } from '@testing-library/react';
+import type React from 'react';
 import { IngestSourcePanelBody } from '@/components/PropertiesPanel/CustomPanels/IngestSource/IngestSource';
+
+import { IntlProvider } from 'react-intl';
+
+const IntlWrapper = ({ children }: { children: React.ReactNode }) => (
+  <IntlProvider locale="en" defaultLocale="en">{children}</IntlProvider>
+);
+const render = (ui: React.ReactElement, options: Omit<RenderOptions, 'wrapper'> = {}) =>
+  rtlRender(ui, { wrapper: IntlWrapper, ...options });
 
 const FILESYSTEM_METADATA = {
   ingest_source: {

@@ -30,9 +30,7 @@ import {
   Toggle,
 } from '@carbon/react';
 import { DefinitionTooltip } from '@carbon/react';
-import { ListInput } from '@/components/common/ListInput/ListInput';
-import { JsonTextArea } from '@/components/common/JsonTextArea/JsonTextArea';
-import { VaultInput } from '@/components/common';
+import { JsonTextArea, ListInput, VaultInput } from '@/components/common';
 import type { OperatorFeature } from '@/types';
 import common from '../../CommonPropertiesPanel.module.scss';
 
