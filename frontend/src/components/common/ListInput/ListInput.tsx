@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Button,
   IconButton,
+  Pagination,
   Table,
   TableBody,
   TableCell,
@@ -10,7 +11,7 @@ import {
   TableRow,
   TextInput,
 } from '@carbon/react';
-import { Add, CaretLeft, CaretRight, SubtractAlt } from '@carbon/icons-react';
+import { Add, SubtractAlt } from '@carbon/icons-react';
 import styles from './ListInput.module.scss';
 
 const PAGE_SIZE = 5;
@@ -132,27 +133,13 @@ export function ListInput({
           </Table>
 
           {pageCount > 1 && (
-            <div className={styles.pager}>
-              <span className={styles.pageLabel}>Page {currentPage}</span>
-              <IconButton
-                kind="ghost"
-                size="md"
-                label="Previous page"
-                disabled={currentPage <= 1}
-                onClick={() => { setPage(currentPage - 1); }}
-              >
-                <CaretLeft />
-              </IconButton>
-              <IconButton
-                kind="ghost"
-                size="md"
-                label="Next page"
-                disabled={currentPage >= pageCount}
-                onClick={() => { setPage(currentPage + 1); }}
-              >
-                <CaretRight />
-              </IconButton>
-            </div>
+            <Pagination
+              page={currentPage}
+              pageSize={PAGE_SIZE}
+              pageSizes={[PAGE_SIZE]}
+              totalItems={items.length}
+              onChange={({ page: p }) => { setPage(p); }}
+            />
           )}
         </div>
       )}

@@ -86,11 +86,10 @@ describe('ListInput', () => {
   });
 
   it('paginates when more than 5 items', () => {
-    renderListInput({ items: ['1', '2', '3', '4', '5', '6'] });
-    expect(screen.getByText('Page 1')).toBeDefined();
-    expect(screen.queryByText('6')).toBeNull();
-    fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
-    expect(screen.getByText('Page 2')).toBeDefined();
-    expect(screen.getByText('6')).toBeDefined();
+    renderListInput({ items: ['a1', 'a2', 'a3', 'a4', 'a5', 'a6'] });
+    expect(screen.queryByText('a6')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: /next page/i }));
+    expect(screen.getByText('a6')).toBeDefined();
+    expect(screen.queryByText('a1')).toBeNull();
   });
 });

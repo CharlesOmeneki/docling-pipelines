@@ -25,16 +25,3 @@
   width: 3rem;
   text-align: right;
 }
-
-.pager {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  background: $layer-01;
-  border-top: 1px solid $border-subtle;
-}
-
-.pageLabel {
-  @include type-style('body-compact-01');
-  padding: 0 $spacing-05;
-}
