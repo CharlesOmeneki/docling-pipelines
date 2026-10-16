@@ -7,7 +7,7 @@ export const messages = defineMessages({
   },
   removeItem: {
     id: 'src.components.common.ListInput.removeItem',
-    defaultMessage: 'Remove {item}',
+    defaultMessage: 'Remove',
   },
   duplicateValue: {
     id: 'src.components.common.ListInput.duplicateValue',

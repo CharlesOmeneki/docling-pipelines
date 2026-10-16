@@ -12,5 +12,5 @@
   "src.components.common.ListInput.nextPage": "Next page",
   "src.components.common.ListInput.pageRange": "{current} of {total} pages",
   "src.components.common.ListInput.previousPage": "Previous page",
-  "src.components.common.ListInput.removeItem": "Remove {item}"
+  "src.components.common.ListInput.removeItem": "Remove"
 }

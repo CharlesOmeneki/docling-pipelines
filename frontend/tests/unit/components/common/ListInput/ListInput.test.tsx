@@ -1,9 +1,9 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { IntlProvider } from 'react-intl';
 import { ListInput } from '@/components/common/ListInput/ListInput';
+import { renderWithProviders } from '../../../../utils/renderWithProviders';
 
 function renderListInput(props: Partial<Parameters<typeof ListInput>[0]> = {}) {
   const defaultProps = {
@@ -14,11 +14,7 @@ function renderListInput(props: Partial<Parameters<typeof ListInput>[0]> = {}) {
     onChange: vi.fn(),
     ...props,
   };
-  return render(
-    <IntlProvider locale="en" defaultLocale="en">
-      <ListInput {...defaultProps} />
-    </IntlProvider>
-  );
+  return renderWithProviders(<ListInput {...defaultProps} />);
 }
 
 describe('ListInput', () => {
@@ -93,7 +89,7 @@ describe('ListInput', () => {
   it('remove button removes the item', async () => {
     const onChange = vi.fn();
     renderListInput({ items: ['/a', '/b'], onChange });
-    await userEvent.click(screen.getByRole('button', { name: 'Remove /a' }));
+    await userEvent.click(screen.getAllByRole('button', { name: 'Remove' })[0] as HTMLElement);
     expect(onChange).toHaveBeenCalledWith(['/b']);
   });
 
@@ -111,11 +107,7 @@ describe('ListInput', () => {
       const [list, setList] = React.useState(items);
       return <ListInput id="h" labelText="Paths" tableTitle="Added paths" items={list} onChange={setList} />;
     };
-    render(
-      <IntlProvider locale="en" defaultLocale="en">
-        <Harness />
-      </IntlProvider>
-    );
+    renderWithProviders(<Harness />);
     await userEvent.type(screen.getByRole('textbox'), 'a6{Enter}');
     expect(screen.getByText('a6')).toBeDefined();
     expect(screen.queryByText('a1')).toBeNull();

@@ -146,7 +146,7 @@ export function ListInput({
                     <IconButton
                       kind="ghost"
                       size="sm"
-                      label={intl.formatMessage(messages.removeItem, { item })}
+                      label={intl.formatMessage(messages.removeItem)}
                       onClick={() => { handleRemove(item); }}
                     >
                       <SubtractAlt />
