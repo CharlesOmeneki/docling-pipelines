@@ -17,7 +17,8 @@ Thank you for your interest in contributing to docling-pipelines! This guide wil
 
 ## Code of Conduct
 
-Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for the project’s conduct policy and reporting instructions.
+Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for the project’s conduct policy. See
+[COMMUNITY.md](COMMUNITY.md) for project-specific reporting contacts and escalation details.
 
 ## Getting Started
 
