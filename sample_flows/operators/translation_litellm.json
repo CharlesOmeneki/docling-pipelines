@@ -1,0 +1,46 @@
+{
+  "flow_name": "Document Translation with LiteLLM",
+  "description": "Translate document text into French using the provider-agnostic translation operator",
+  "global_config": {
+    "doc_column": "content",
+    "disable_validation": false,
+    "force_ingest": true,
+    "storage": "in-memory",
+    "execute_type": "local"
+  },
+  "flow": [
+    {
+      "name": "ingest",
+      "type": "ingest_source",
+      "config": {
+        "provider": "filesystem",
+        "provider_config": {
+          "paths": [
+            "./tests/fixtures/invoices"
+          ]
+        },
+        "include_filter": "pdf,docx,txt"
+      }
+    },
+    {
+      "name": "translate",
+      "type": "translation",
+      "config": {
+        "provider": "litellm",
+        "provider_config": {
+          "model_id": "openai/gpt-4o-mini",
+          "api_key": "${OPENAI_API_KEY}"
+        },
+        "doc_column": "content",
+        "output_column": "translated_content",
+        "source_language": "auto",
+        "target_language": "French",
+        "preserve_markdown": true,
+        "max_input_tokens": 4096
+      },
+      "depends_on": [
+        "ingest"
+      ]
+    }
+  ]
+}
