@@ -31,7 +31,9 @@ class TranslationOperator(AbstractOperator):
     def __init__(self, config: dict[str, Any]) -> None:
         super().__init__(config)
 
-        self.output_column = config.get("output_column", "translated_content")
+        self.output_column = config.get(
+            "output_column", OperatorConstants.Columns.TRANSLATED_CONTENT
+        )
         self.source_language = config.get("source_language", "auto")
         self.target_language = config.get("target_language")
         self.preserve_markdown = config.get("preserve_markdown", True)
@@ -69,8 +71,8 @@ class TranslationOperator(AbstractOperator):
             raise ValueError("output_column must differ from doc_column")
 
         if self.output_column in {
-            "translation_source_language",
-            "translation_target_language",
+            OperatorConstants.Columns.TRANSLATION_SOURCE_LANGUAGE,
+            OperatorConstants.Columns.TRANSLATION_TARGET_LANGUAGE,
         }:
             raise ValueError(
                 "output_column cannot conflict with translation language metadata columns"
@@ -235,8 +237,8 @@ class TranslationOperator(AbstractOperator):
 
         protected_columns = {
             self.output_column,
-            "translation_source_language",
-            "translation_target_language",
+            OperatorConstants.Columns.TRANSLATION_SOURCE_LANGUAGE,
+            OperatorConstants.Columns.TRANSLATION_TARGET_LANGUAGE,
         }
         conflicts = protected_columns.intersection(table.column_names)
         if conflicts:
@@ -302,8 +304,8 @@ class TranslationOperator(AbstractOperator):
         result = table
         new_columns = (
             (self.output_column, translated_values),
-            ("translation_source_language", source_languages),
-            ("translation_target_language", target_languages),
+            (OperatorConstants.Columns.TRANSLATION_SOURCE_LANGUAGE, source_languages),
+            (OperatorConstants.Columns.TRANSLATION_TARGET_LANGUAGE, target_languages),
         )
 
         for name, values in new_columns:
